@@ -20,7 +20,7 @@ class CloudflareFeature(
       val parsedIp = ip.let { IP.parse(it) }
       if (parsedIp !== null) {
         val addresses = if (parsedIp is IP.IPv6) ipV6Addresses else ipV4Addresses
-        val cloudflareConnectingIP = content.context.request.header("cf-connecting-ip")
+        val cloudflareConnectingIP = content.context.request.header("CF-Connecting-IP")
         if (cloudflareConnectingIP !== null && IPUtils.isInRange(parsedIp, *addresses.toTypedArray())) {
           finalIp = cloudflareConnectingIP
         }
